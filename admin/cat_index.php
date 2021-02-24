@@ -30,7 +30,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
-            <a href="add.php" class="btn btn-success mb-3">Add Category</a>
+            <a href="cat_add.php" class="btn btn-success mb-3">Add Category</a>
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Category Table</h3>
@@ -74,17 +74,17 @@
                           
                     if($categories)
                     {
-                        foreach($categories as $product): 
+                        foreach($categories as $category): 
                     ?>
                       <tr >
-                        <td><?=escape($product->id);?></td>
-                        <td><?=escape($product->name);?></td>
-                        <td><?=escape(substr($product->description,0,50));?>...</td>
+                        <td><?=escape($category->id);?></td>
+                        <td><?=escape($category->name);?></td>
+                        <td><?=escape(substr($category->description,0,50));?>...</td>
                         <td>
-                          <a href="edit.php?id=<?=$product->id; ?>" class="btn btn-warning">Edit</a>
+                          <a href="cat_edit.php?id=<?=$category->id; ?>" class="btn btn-warning">Edit</a>
                         </td>
                         <td>
-                          <a href="destroy.php?id=<?=$product->id; ?>" class="btn btn-danger" onclick="return confirm('are u sure want to delete');">Delete</a>
+                          <a href="cat_delete.php?id=<?=$category->id; ?>" class="btn btn-danger" onclick="return confirm('are u sure want to delete');">Delete</a>
                         </td>
                       </tr>
                     <?php 
