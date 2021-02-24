@@ -95,7 +95,7 @@
                           <a href="edit.php?id=<?=$product->id; ?>" class="btn btn-warning">Edit</a>
                         </td>
                         <td>
-                          <a href="destroy.php?id=<?=$product->id; ?>" class="btn btn-danger" onclick="return confirm('are u sure want to delete');">Delete</a>
+                          <a href="delete.php?id=<?=$product->id; ?>" class="btn btn-danger" onclick="return confirm('are u sure want to delete');">Delete</a>
                         </td>
                       </tr>
                     <?php 
