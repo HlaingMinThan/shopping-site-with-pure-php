@@ -41,6 +41,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   if($fileName==='cat_index.php' || $fileName==='searchCategories.php'){
     $action="searchCategories.php";
   }
+  if($fileName==='user_index.php' || $fileName==='searchUsers.php'){
+    $action="searchUsers.php";
+  }
   ?>
     <!-- SEARCH FORM -->
     <form class="form-inline ml-3"  action="<?=$action;?>"> 
@@ -93,9 +96,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           <li class="nav-item">
             <a href="cat_index.php" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
+              <i class="fa fa-list-alt ml-1"></i>
               <p>
                 Categories
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="user_index.php" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Users
               </p>
             </a>
           </li>

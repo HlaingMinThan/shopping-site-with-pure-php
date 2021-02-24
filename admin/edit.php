@@ -55,7 +55,7 @@ if($_POST){
     if(!is_numeric($_POST['quantity'])){
       $quantityError="quantity is not integer datatype";
     }
-    if($priceError=="" && $quantityError==""){
+    if(empty($priceError) && empty($quantityError)){
       if($_FILES['image']['name']){
           $imgName=$_FILES['image']['name'];
           $to="images/products/$imgName";
