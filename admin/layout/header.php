@@ -46,16 +46,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
   }
   ?>
     <!-- SEARCH FORM -->
-    <form class="form-inline ml-3"  action="<?=$action;?>"> 
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" name="search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
+    <?php if($fileName!="order_index.php"):?>
+      <form class="form-inline ml-3"  action="<?=$action;?>"> 
+        <div class="input-group input-group-sm">
+          <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" name="search">
+          <div class="input-group-append">
+            <button class="btn btn-navbar" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    <?php endif; ?>
     <div class="">
       <a class="btn btn-primary ml-3" href="logout.php">Logout</a>
     </div>
@@ -107,6 +109,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <i class="nav-icon fas fa-user"></i>
               <p>
                 Users
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="order_index.php" class="nav-link">
+              <i class="fa fa-shopping-cart ml-2"></i>
+              <p>
+                Orders
               </p>
             </a>
           </li>
