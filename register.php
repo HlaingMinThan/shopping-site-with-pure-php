@@ -1,3 +1,64 @@
+<?php
+require "./config/common.php";
+require "./config/config.php";
+
+if($_POST){
+	$name=$_POST['name'];
+	$email=$_POST['email'];
+	$password=$_POST['password'];
+	$phone=$_POST['phone'];
+	$address=$_POST['address'];
+	$statement=$pdo->prepare("select * from users where email=?");
+	$statement->execute([$email]);
+	$user=$statement->fetch(PDO::FETCH_OBJ);
+	if(empty($name)){
+		$nameError="name is required";
+	}
+	if(empty($email)){
+		$emailError="email is required";
+	}
+	if(empty($password)){
+		$passwordError="password is required";
+	}
+	if(empty($phone)){
+		$phoneError="phone is required";
+	}
+	if(empty($address)){
+		$addressError="address is required";
+	}
+	if($user){
+		$emailError="email is already exists";
+	}
+	if(!(strlen($password)>6)){
+		$passwordError="Password must me at least 6 characters";
+	}
+	
+	if(!is_numeric($phone)){
+		$phoneError="please fill a phone number";
+	}
+	if($name && $email && $password && $phone && $address){
+		if(!$user){
+			if(strlen($password)>6){
+				if(empty($phoneError)){
+					$stmt=$pdo->prepare("insert into users (name,email,password,phone,address) values (?,?,?,?,?)");
+					$stmt->execute([
+						$name,
+						$email,
+						password_hash($password,PASSWORD_DEFAULT),
+						$phone,
+						$address
+					]);
+					header("location:index.php");
+				}
+			}else{
+				$passwordError="Password must me at least 6 characters";
+			}
+		}else{
+			$emailError="email is already exists";
+		}
+	}
+}
+?>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 
@@ -87,23 +148,28 @@
 				<div class="col-lg-12">
 					<div class="login_form_inner">
 						<h3>Register To Use Our Shopping Site</h3>
-						<form class="row login_form" action="register.php" method="post" id="contactForm" novalidate="novalidate">
-
+						<form action="" class="row login_form" action="register.php" method="post" id="contactForm" novalidate="novalidate">
+							<input type="hidden" name="_token" value="<?=$_SESSION['_token'];?>">
              				 <div class="col-md-12 form-group">
 								<input type="text" class="form-control" id="name" name="name" placeholder="Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Name'">
+								<p class="text-danger"><?= empty($nameError)?'':$nameError; ?></p>
+
 							</div>
 							<div class="col-md-12 form-group">
 								<input type="text" class="form-control" id="name" name="email" placeholder="Email"  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
+								<p class="text-danger"><?= empty($emailError)?'':$emailError; ?></p>
 							</div>
               				<div class="col-md-12 form-group">
 								<input type="text" class="form-control" id="name" name="phone" placeholder="Phone" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone'">
+								<p class="text-danger"><?= empty($phoneError)?'':$phoneError; ?></p>
 							</div>
               				<div class="col-md-12 form-group">
 								<input type="text" class="form-control" id="name" name="address" placeholder="Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Address'">
+								<p class="text-danger"><?= empty($addressError)?'':$addressError; ?></p>
 							</div>
 							<div class="col-md-12 form-group">
 								<input type="password" class="form-control" id="name" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
-               					 <p style="color:red;text-align:left;"></p>
+								<p class="text-danger"><?= empty($passwordError)?'':$passwordError; ?></p>
 							</div>
 							<div class="col-md-12 form-group">
                 				<button type="submit" value="submit" class="primary-btn">Register</button>
