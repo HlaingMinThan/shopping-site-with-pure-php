@@ -10,6 +10,9 @@ include('header.php');
 			<?php 
 					 // pagination
                         // check pageno exist or not
+                        if(isset($_GET['search'])){
+                            setcookie("search",$_GET['search'],time()+3600);
+                        }
 						if(isset($_GET['pageno'])) 
 						{
 						  $pageno=$_GET['pageno'];
@@ -17,17 +20,20 @@ include('header.php');
 						else{
 						  $pageno=1;
 						}
-						$recordsPerPage=3;
-						$offset=($pageno-1)*$recordsPerPage;
-						$stmt=$pdo->prepare("select * from products limit $offset,$recordsPerPage");
-						$stmt->execute();
-						$products=$stmt->fetchAll(PDO::FETCH_OBJ);
-						// total pages
-						$statement=$pdo->prepare('select count(*) from products');
-						$statement->execute();
-						$result=$statement->fetch();
-						$totalproducts=$result[0];
-						$totalPages=ceil($totalproducts/$recordsPerPage);
+                        if(isset($_GET['search'])||isset($_COOKIE['search'])){
+                            $recordsPerPage=3;
+                            $offset=($pageno-1)*$recordsPerPage;
+                            $search=isset($_GET['search'])?$_GET['search']:$_COOKIE['search'];
+                            $stmt=$pdo->prepare("select * from products where name like '%$search%' limit $offset,$recordsPerPage");
+                            $stmt->execute();
+                            $products=$stmt->fetchAll(PDO::FETCH_OBJ);
+                            // total pages
+                            $statement=$pdo->prepare("select count(*) from products where name like '%$search%'");
+                            $statement->execute();
+                            $result=$statement->fetch();
+                            $totalproducts=$result[0];
+                            $totalPages=ceil($totalproducts/$recordsPerPage);
+                        }
 			?>
 			<div class="col-xl-9 col-lg-8 col-md-7">
 			<!-- Start Pagination Bar -->
