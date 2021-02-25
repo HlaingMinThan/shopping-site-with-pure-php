@@ -49,29 +49,7 @@
                   <tbody>
                     <?php 
                       // pagination
-                        // check pageno exist or not
-                      if(isset($_GET['pageno'])) 
-                      {
-                        $pageno=$_GET['pageno'];
-                      }
-                      else{
-                        $pageno=1;
-                      }
-                      $recordsPerPage=5;
-                      $offset=($pageno-1)*$recordsPerPage;
-                      $stmt=$pdo->prepare("select * from categories limit $offset,$recordsPerPage");
-                      $stmt->execute();
-                      $categories=$stmt->fetchAll(PDO::FETCH_OBJ);
-                      // total pages
-                      $statement=$pdo->prepare('select count(*) from categories');
-                      $statement->execute();
-                      $result=$statement->fetch();
-                      $totalcategories=$result[0];
-                      $totalPages=ceil($totalcategories/$recordsPerPage);
-                             
-                         
-
-                          
+                    [$pageno,$categories,$totalPages]=pagination(3,"categories",$pdo);
                     if($categories)
                     {
                         foreach($categories as $category): 

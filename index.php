@@ -5,43 +5,15 @@ include('header.php');
 <div class="container">
 		<div class="row">
 			<div class="col-xl-3 col-lg-4 col-md-5">
+				<!-- categories sidebar -->
 				<?php require "./components/categories.php" ?>
 			</div>
 			<?php 
-					 // pagination
-                        // check pageno exist or not
-						if(isset($_GET['pageno'])) 
-						{
-						  $pageno=$_GET['pageno'];
-						}
-						else{
-						  $pageno=1;
-						}
-						$recordsPerPage=3;
-						$offset=($pageno-1)*$recordsPerPage;
-						$stmt=$pdo->prepare("select * from products limit $offset,$recordsPerPage");
-						$stmt->execute();
-						$products=$stmt->fetchAll(PDO::FETCH_OBJ);
-						// total pages
-						$statement=$pdo->prepare('select count(*) from products');
-						$statement->execute();
-						$result=$statement->fetch();
-						$totalproducts=$result[0];
-						$totalPages=ceil($totalproducts/$recordsPerPage);
+				[$pageno,$products,$totalPages]=pagination(3,"products",$pdo);
 			?>
 			<div class="col-xl-9 col-lg-8 col-md-7">
-			<!-- Start Pagination Bar -->
-			<div class="filter-bar d-flex flex-wrap align-items-center">
-				<div class="pagination">
-					<a href="<?=$pageno<=1? "#":"?pageno=".$pageno-1; ?>" class="prev-arrow" <?php echo $pageno<=1 ? 'disabled' :'' ;?>><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
-					<?php  foreach(range(1,$totalPages) as $page):?>
-						<a  href="?pageno=<?=$page;?>"><?=$page;?></a>
-					<?php endforeach; ?>
-
-					<a  href='<?=$pageno>=$totalPages? "#":"?pageno=".$pageno+1;  ?>' class="next-arrow" <?php echo $pageno>=$totalPages ? 'disabled' :'' ;?>><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
-				</div>
-			</div>
-				<!-- End Pagination Bar -->
+				<h1	h1>All Products</h1>
+				<?php require "./components/pagination.php"; ?>
 			
 				<!-- Start Products section -->
 				<section class="lattest-product-area pb-40 category-list">
@@ -55,6 +27,12 @@ include('header.php');
 									<h6><?= escape($product->name); ?></h6>
 									<div class="price">
 										<h6 class="text-success"><?= escape($product->price); ?>Kyats</h6>
+										<?php
+											 $stmt=$pdo->prepare("select * from categories where id =$product->category_id");
+											 $stmt->execute();
+											 $category=$stmt->fetch(PDO::FETCH_OBJ);
+										?>
+										<h6><?= escape($category->name); ?></h6>
 									</div>
 									<div class="prd-bottom">
 
@@ -74,4 +52,5 @@ include('header.php');
 					</div>
 				</section>
 				<!-- End Products section-->
+			</div>
 <?php include('footer.php');?>

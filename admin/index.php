@@ -1,12 +1,14 @@
 <?php
     require "../config/common.php";
+    require "../config/config.php";
+    
     if(!$_SESSION["user_id"] && !$_SESSION["logged_in"]){
       header("location:login.php");
     }
     if($_SESSION["user_id"] && $_SESSION["logged_in"] && $_SESSION["role"]!=1){
       header("location:login.php");
     }
-    require "../config/config.php";
+    
     require "layout/header.php";
     if(isset($_COOKIE['search'])){
         unset($_COOKIE["search"]);
@@ -51,30 +53,8 @@
                   </thead>
                   <tbody>
                     <?php 
-                      // pagination
-                        // check pageno exist or not
-                      if(isset($_GET['pageno'])) 
-                      {
-                        $pageno=$_GET['pageno'];
-                      }
-                      else{
-                        $pageno=1;
-                      }
-                      $recordsPerPage=5;
-                      $offset=($pageno-1)*$recordsPerPage;
-                      $stmt=$pdo->prepare("select * from products limit $offset,$recordsPerPage");
-                      $stmt->execute();
-                      $products=$stmt->fetchAll(PDO::FETCH_OBJ);
-                      // total pages
-                      $statement=$pdo->prepare('select count(*) from products');
-                      $statement->execute();
-                      $result=$statement->fetch();
-                      $totalproducts=$result[0];
-                      $totalPages=ceil($totalproducts/$recordsPerPage);
-                             
-                         
-
-                          
+                    // pagination
+                    [$pageno,$products,$totalPages]=pagination(3,"products",$pdo);
                     if($products)
                     {
                         foreach($products as $product): 
@@ -103,20 +83,10 @@
                       }
                     ?>
                   </tbody>
-                    <!-- pagination -->
-                    <nav aria-label="Page navigation example">
-                      <ul class="pagination">
-                        <li class="page-item <?php echo $pageno<=1 ? 'disabled' :'' ;?>">
-                            <a class="page-link" href='<?=$pageno<=1? "#":"?pageno=".$pageno-1;  ?>'>Prev</a>
-                        </li>
-                        <?php  foreach(range(1,$totalPages) as $page):?>
-                          <li class="page-item"><a class="page-link" href="?pageno=<?=$page;?>"><?=$page;?></a></li>
-                        <?php endforeach; ?>
-                        <li class="page-item <?php echo $pageno>=$totalPages ? 'disabled' :'' ;?>">
-                            <a class="page-link" href='<?=$pageno>=$totalPages? "#":"?pageno=".$pageno+1;  ?>'>Next</a>
-                        </li>
-                      </ul>
-                    </nav>
+                   <?php 
+                    // pagination component
+                    require "components/pagination.php";
+                   ?>
                 </table>
               </div>
             </div> 

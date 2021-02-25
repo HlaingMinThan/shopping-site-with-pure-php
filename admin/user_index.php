@@ -49,29 +49,7 @@
                   <tbody>
                     <?php 
                       // pagination
-                        // check pageno exist or not
-                      if(isset($_GET['pageno'])) 
-                      {
-                        $pageno=$_GET['pageno'];
-                      }
-                      else{
-                        $pageno=1;
-                      }
-                      $recordsPerPage=5;
-                      $offset=($pageno-1)*$recordsPerPage;
-                      $stmt=$pdo->prepare("select * from users  limit $offset,$recordsPerPage");
-                      $stmt->execute();
-                      $users=$stmt->fetchAll(PDO::FETCH_OBJ);
-                      // total pages
-                      $statement=$pdo->prepare('select count(*) from users');
-                      $statement->execute();
-                      $result=$statement->fetch();
-                      $totalUsers=$result[0];
-                      $totalPages=ceil($totalUsers/$recordsPerPage);
-                             
-                         
-
-                          
+                    [$pageno,$users,$totalPages]=pagination(3,"users",$pdo);
                     if($users)
                     {
                         foreach($users as $user): 

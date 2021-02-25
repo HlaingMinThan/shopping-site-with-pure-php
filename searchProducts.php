@@ -10,9 +10,6 @@ include('header.php');
 			<?php 
 					 // pagination
                         // check pageno exist or not
-                        if(isset($_GET['search'])){
-                            setcookie("search",$_GET['search'],time()+3600);
-                        }
 						if(isset($_GET['pageno'])) 
 						{
 						  $pageno=$_GET['pageno'];

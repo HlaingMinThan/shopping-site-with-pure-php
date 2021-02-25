@@ -35,4 +35,28 @@
         echo "<pre>";
         die(var_dump($data));
     }
+
+    // pagination reusable function
+    function pagination($recordsPerPage,$tableName,$pdo){
+        // pagination
+       // check pageno exist or not
+       if(isset($_GET['pageno'])) 
+       {
+         $pageno=$_GET['pageno'];
+       }
+       else{
+         $pageno=1;
+       }
+       $offset=($pageno-1)*$recordsPerPage;
+       $stmt=$pdo->prepare("select * from $tableName limit $offset,$recordsPerPage");
+       $stmt->execute();
+       $datas=$stmt->fetchAll(PDO::FETCH_OBJ);
+       // total pages
+       $statement=$pdo->prepare("select count(*) from $tableName");
+       $statement->execute();
+       $result=$statement->fetch();
+       $totaldatas=$result[0];
+       $totalPages=ceil($totaldatas/$recordsPerPage);
+       return [$pageno,$datas,$totalPages];
+   }
 ?>
