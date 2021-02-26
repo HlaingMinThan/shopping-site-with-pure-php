@@ -22,12 +22,15 @@ include('header.php');
 						<!-- single product -->
 						<div class="col-lg-4 col-md-6">
 							<div class="single-product">
-								<img class="img-fluid" src="admin/images/products/<?=escape($product->image);?>" alt="">
+							<a href="product_detail.php?id=<?=$product->id;?>" >
+								<img class="img-fluid" src="admin/images/products/<?=escape($product->image);?>">
+							</a>
 								<div class="product-details">
 									<h6><?= escape($product->name); ?></h6>
 									<div class="price">
 										<h6 class="text-success"><?= escape($product->price); ?>Kyats</h6>
 										<?php
+											// get category name from product category_id
 											 $stmt=$pdo->prepare("select * from categories where id =$product->category_id");
 											 $stmt->execute();
 											 $category=$stmt->fetch(PDO::FETCH_OBJ);

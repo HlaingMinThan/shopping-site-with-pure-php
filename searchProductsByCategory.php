@@ -56,7 +56,9 @@ if(isset($_GET['cat_id'])){
 						<!-- single product -->
 						<div class="col-lg-4 col-md-6">
 							<div class="single-product">
+							<a href="product_detail.php?id=<?=$product->id;?>">
 								<img class="img-fluid" src="admin/images/products/<?=escape($product->image);?>" alt="">
+							</a>
 								<div class="product-details">
 									<h6><?= escape($product->name); ?></h6>
 									<div class="price">
