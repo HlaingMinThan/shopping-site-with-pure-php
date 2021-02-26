@@ -28,7 +28,12 @@ if($_POST){
       if(empty($_POST['address'])){
         $addressError="address is required";
       }
-      
+      if($_POST['password']){
+
+        if(!(strlen($_POST['password'])>6)){
+          $passwordError="password must be 6 characters";
+        }
+      }
     }else{
       if($user){
         $emailError="user email already exists";
@@ -36,6 +41,11 @@ if($_POST){
       
       if(!is_numeric($_POST['phone'])){
         $phoneError='please fill phone number';
+      }
+      if($_POST['password']){
+        if(!(strlen($_POST['password'])>6)){
+          $passwordError="password must be 6 characters";
+        }
       }
       if(empty($phoneError) && empty($emailError)){
 

@@ -1,4 +1,4 @@
-<div class="sidebar-categories">
+<div class="sidebar-categories text-center">
     <div class="head">Browse Categories</div>
     <ul class="main-categories">
     <?php 

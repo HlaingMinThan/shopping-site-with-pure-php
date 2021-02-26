@@ -46,7 +46,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   }
   ?>
     <!-- SEARCH FORM -->
-    <?php if($fileName!="order_index.php"):?>
+    <?php if($fileName=="index.php"||$fileName=="cat_index.php"||$fileName=="user_index.php"):?>
       <form class="form-inline ml-3"  action="<?=$action;?>"> 
         <div class="input-group input-group-sm">
           <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" name="search">
