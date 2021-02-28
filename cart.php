@@ -93,7 +93,7 @@
                                 <td>
                                     <div class="checkout_btn_inner d-flex align-items-center">
                                         <a class="gray_btn" href="./index.php">Continue Shopping</a>
-                                        <a class="primary-btn" href="#">Proceed to checkout</a>
+                                        <a class="primary-btn" href="./confirmation.php">Order Submit</a>
                                         <a class="gray_btn" href="clear_items.php">Clear Items</a>
                                     </div>
                                 </td>
