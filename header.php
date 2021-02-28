@@ -59,7 +59,17 @@ if(isset($_GET['search'])){
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav navbar-right">
-							<li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
+							<?php 
+								// get buy total product quantity count
+								$total_quantity_count=0;
+								if(isset($_SESSION['cart']['items'])){
+									$items=$_SESSION['cart']['items'];
+									foreach($items as $product_id=>$qty){
+										$total_quantity_count+=$qty;
+									}
+								}
+							?>
+							<li class="nav-item"><a href="cart.php" class="cart"><span class="ti-bag"><?= $total_quantity_count; ?></span></a></li>
 							<li class="nav-item">
 								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
 							</li>

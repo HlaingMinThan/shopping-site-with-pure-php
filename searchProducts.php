@@ -53,22 +53,16 @@ include('header.php');
 						<!-- single product -->
 						<div class="col-lg-4 col-md-6">
 							<div class="single-product">
-								<img class="img-fluid" src="admin/images/products/<?=escape($product->image);?>" alt="">
+								<a href="product_detail.php?id=<?=escape($product->id);?>" >
+									<img class="img-fluid" src="admin/images/products/<?=escape($product->image);?>">
+								</a>
 								<div class="product-details">
-									<h6><?= escape($product->name); ?></h6>
+									<h6><a href="product_detail.php?id=<?=escape($product->id);?>"><?= escape($product->name); ?></a></h6>
 									<div class="price">
 										<h6 class="text-success"><?= escape($product->price); ?>Kyats</h6>
 									</div>
 									<div class="prd-bottom">
-
-										<a href="" class="social-info">
-											<span class="ti-bag"></span>
-											<p class="hover-text">add to bag</p>
-										</a>
-										<a href="./product_detail.php" class="social-info">
-											<span class="lnr lnr-move"></span>
-											<p class="hover-text">view more</p>
-										</a>
+										<?php require "./components/addToCartFormButton.php" ?>
 									</div>
 								</div>
 							</div>
