@@ -33,6 +33,7 @@ if (!empty($_SESSION['cart']) && !empty($_SESSION['cart']['items'])) {
 			$stmt = $pdo->prepare("insert into order_details(order_id,product_id,quantity) values (?,?,?)");
 			$result = $stmt->execute([$orderId,$id,$qty]);
 
+			// update order products quantity
 			$qtyStmt = $pdo->prepare("select quantity from products where id=?");
 			$qtyStmt->execute([$id]);
 			$qResult = $qtyStmt->fetch(PDO::FETCH_OBJ);
@@ -44,7 +45,7 @@ if (!empty($_SESSION['cart']) && !empty($_SESSION['cart']['items'])) {
 			$stmt->execute([$updateQty,$id]);
 		}
 
-		unset($_SESSION['cart']);
+		unset($_SESSION['cart']);//don't forget to unset to session cart 
 
 	}
 }
@@ -54,9 +55,10 @@ if (!empty($_SESSION['cart']) && !empty($_SESSION['cart']['items'])) {
 
 	<!--================Order Details Area =================-->
 	<section class="order_details section_gap">
-		<div class="container">
+		<div class="container text-center">
 			<h3 class="title_confirmation">Thank you. Your order has been received.</h3>
-			<div class="row order_d_inner">
+			<a href="./index.php" class="primary-btn">go shopping page</a>
+			<!-- <div class="row order_d_inner">
 				<div class="col-lg-6">
 					<div class="details_item">
 						<h4>Order Info</h4>
@@ -79,7 +81,7 @@ if (!empty($_SESSION['cart']) && !empty($_SESSION['cart']['items'])) {
 						</ul>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</section>
 	<!--================End Order Details Area =================-->

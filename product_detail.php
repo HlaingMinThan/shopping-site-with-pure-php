@@ -25,7 +25,8 @@
           <h2><?= escape($product->price); ?> Kyats</h2>
           <ul class="list">
             <li><a class="active" href="#"><span>Category</span> : <?= $categoryName; ?></a></li>
-            <li><a href="#"><span>Availibility</span> : <?= $product->quantity>0 ?'in stock' :'out of stock'; ?></a></li>
+            <li><a href="#"><span>in stock</span> : <?= $product->quantity; ?></a></li>
+            <p style="color:red"><?= empty($_SESSION['quantityError'])?'':$_SESSION['quantityError']; ?></p>
           </ul>
           <p><?= $product->description; ?></p>
           <!-- add to cart functionality -->

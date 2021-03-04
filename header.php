@@ -95,8 +95,8 @@ if(isset($_GET['search'])){
 		<div class="container">
 			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 				<div class="col-first">
-					<h1>Welcome From My </h1><br>
-					<h1>Fashion Store</h1>
+					<h1> Welcome <?= $_SESSION['username']; ?></h1><br>
+					<a href="./logout.php" class="primary-btn" style="background: white;color: black;">Logout</a>
 
 				</div>
 			</div>

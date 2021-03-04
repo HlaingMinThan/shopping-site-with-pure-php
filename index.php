@@ -9,7 +9,28 @@ include('header.php');
 				<?php require "./components/categories.php" ?>
 			</div>
 			<?php 
-				[$pageno,$products,$totalPages]=pagination(3,"products",$pdo);
+					//instock products pagination
+				// check pageno exist or not
+				if(isset($_GET['pageno'])) 
+				{
+					$pageno=$_GET['pageno'];
+				}
+				else{
+					$pageno=1;
+				}
+				$recordsPerPage=3;
+				$offset=($pageno-1)*$recordsPerPage;
+				// show only instock product
+				$stmt=$pdo->prepare("select * from products where quantity>0 limit $offset,$recordsPerPage");
+				$stmt->execute();
+				$products=$stmt->fetchAll(PDO::FETCH_OBJ);
+				// total pages
+				// get only instock products count
+				$statement=$pdo->prepare("select count(*) from products where quantity>0");
+				$statement->execute();
+				$result=$statement->fetch();
+				$totalproducts=$result[0];//instock products count
+				$totalPages=ceil($totalproducts/$recordsPerPage);
 			?>
 			<div class="col-xl-9 col-lg-8 col-md-7">
 				<h1	h1>All Products</h1>

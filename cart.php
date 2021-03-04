@@ -1,5 +1,23 @@
 <?php 
     require "./header.php";
+    $items=$_SESSION['cart']['items'];
+                           
+    if(isset($_SESSION['quantityError'])){
+        unset($_SESSION['quantityError']);
+    }
+    // check  items in cart are out of stock
+    foreach($items as $product_id=>$qty){
+        $id=substr($product_id,2);
+        $stmt=$pdo->prepare("select * from products where id =?");  
+        $stmt->execute([$id]);
+        $productInCart=$stmt->fetch(PDO::FETCH_OBJ);
+        // check user pick product quantity is greater than real product's quantity in database
+        if($productInCart->quantity<$qty){
+            $_SESSION['quantityError']="sorry,we have not enough in stock.please reduce quantity limit";
+            unset($_SESSION['cart']['items'][$product_id]);
+            header ("location:product_detail.php?id=$productInCart->id;");
+        }
+    } 
 ?>
 
 
