@@ -26,7 +26,15 @@
           <ul class="list">
             <li><a class="active" href="#"><span>Category</span> : <?= $categoryName; ?></a></li>
             <li><a href="#"><span>in stock</span> : <?= $product->quantity; ?></a></li>
-            <p style="color:red"><?= empty($_SESSION['quantityError'])?'':$_SESSION['quantityError']; ?></p>
+            <?php 
+              if(!empty($_SESSION["quantityError$product->id"]))
+              { 
+            ?>
+                <p style="color:red"><?= $_SESSION["quantityError$product->id"]; ?></p>
+            <?php 
+              unset($_SESSION["quantityError$product->id"]);
+              } 
+            ?>
           </ul>
           <p><?= $product->description; ?></p>
           <!-- add to cart functionality -->

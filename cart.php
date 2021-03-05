@@ -13,7 +13,7 @@
         $productInCart=$stmt->fetch(PDO::FETCH_OBJ);
         // check user pick product quantity is greater than real product's quantity in database
         if($productInCart->quantity<$qty){
-            $_SESSION['quantityError']="sorry,we have not enough in stock.please reduce quantity limit";
+            $_SESSION["quantityError$productInCart->id"]="sorry,we have not enough in stock.please reduce quantity limit";
             unset($_SESSION['cart']['items'][$product_id]);
             header ("location:product_detail.php?id=$productInCart->id;");
         }
