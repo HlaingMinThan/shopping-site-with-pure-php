@@ -24,8 +24,8 @@
           <h3><?= escape($product->name); ?></h3>
           <h2><?= escape($product->price); ?> Kyats</h2>
           <ul class="list">
-            <li><a class="active" href="#"><span>Category</span> : <?= $categoryName; ?></a></li>
-            <li><a href="#"><span>in stock</span> : <?= $product->quantity; ?></a></li>
+            <li><a class="active" href="./searchProductsByCategory.php?cat_id=<?=$product->category_id;?>"><span>Category</span> : <?= $categoryName; ?></a></li>
+            <li><a><span>in stock</span> : <?= $product->quantity; ?></a></li>
             <?php 
               if(!empty($_SESSION["quantityError$product->id"]))
               { 
@@ -48,6 +48,15 @@
                 class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
                 <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
                 class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+                <?php 
+                  if(!empty($_SESSION["quantityValidationError"]))
+                  { 
+                ?>
+                    <p style="color:red"><?= $_SESSION["quantityValidationError"]; ?></p>
+                <?php 
+                  unset($_SESSION["quantityValidationError"]);
+                  } 
+                ?>
               </div>
               <div class="card_area d-flex align-items-center">
                 <button class="primary-btn" type="submit" style="border: 0;">Add to Cart</button>
