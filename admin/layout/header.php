@@ -28,6 +28,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <!-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet"> -->
+  <link rel="stylesheet" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -132,13 +133,40 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="weekly_reports.php" class="nav-link <?=$fileName==='weekly_reports.php' ? 'active':'';?>">
-              <i class="fa fa-list ml-2"></i>
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Weekly reports
+               Reporting
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="weekly_reports.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Weekly Reporting</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="monthly_reports.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Monthly Reporting</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Royal Users</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Best Seller Items</p>
+                </a>
+              </li>
+            </ul>
           </li>
         </ul>
       </nav>
