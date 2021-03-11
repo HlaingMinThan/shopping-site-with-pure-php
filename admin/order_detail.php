@@ -19,7 +19,7 @@
                 $customer=$stmt->fetch(PDO::FETCH_OBJ);
             ?>
             <h1 class="m-0 text-dark">Order Detail For <?=escape($customer->name);?></h1>
-            <h6>Order Date-<?=escape($order->order_date);?></h6>
+            <h6>Order Date-<?=escape(date("Y-m-d",strtotime($order->order_date)));?></h6>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->

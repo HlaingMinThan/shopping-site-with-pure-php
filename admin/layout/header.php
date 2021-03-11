@@ -142,26 +142,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="weekly_reports.php" class="nav-link">
+              <li class="nav-item ">
+                <a href="weekly_reports.php" class="nav-link <?=$fileName==='weekly_reports.php' ? 'active':'';?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Weekly Reporting</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="monthly_reports.php" class="nav-link">
+                <a href="monthly_reports.php" class="nav-link <?=$fileName==='monthly_reports.php' ? 'active':'';?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Monthly Reporting</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="royal_users.php" class="nav-link">
+                <a href="royal_users.php" class="nav-link <?=$fileName==='royal_users.php' ? 'active':'';?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Royal Users</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="best_seller_items.php" class="nav-link">
+                <a href="best_seller_items.php" class="nav-link <?=$fileName==='best_seller_items.php' ? 'active':'';?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Best Seller Items</p>
                 </a>

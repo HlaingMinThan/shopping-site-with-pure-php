@@ -74,7 +74,7 @@
                         ?>
                         <td><?=escape($customer->name);?></td>
                         <td><?=escape($order->total_price);?></td>
-                        <td><?=escape($order->order_date);?></td>
+                        <td><?=escape(date("Y-m-d",strtotime($order->order_date)));?></td>
                         <td>
                           <a href="order_detail.php?id=<?=$order->id; ?>" class="btn btn-warning">View Detail</a>
                         </td>
