@@ -1,23 +1,24 @@
 <?php 
     require "./layout/header.php"; 
-    $royalUserMoneyAmount=100000;
-    // get users who bought above $royalUserMoneyAmount
-    $stmt=$pdo->prepare("select * from users");
+    $bestSellerQuantityAmount=7;
+    // get quantity amount above $bestSellerQuantityAmount
+    $stmt=$pdo->prepare("select * from products");
     $stmt->execute();
-    $users=$stmt->fetchAll(PDO::FETCH_OBJ);
-    $royalUsers=[];
-    foreach($users as $user){
-        $sql="select sum(total_price) from orders where customer_id=?";
+    $products=$stmt->fetchAll(PDO::FETCH_OBJ);
+    $bestSellerProducts=[];
+    foreach($products as $product){
+        $sql="select sum(quantity) from order_details where product_id=?";
         $stmt=$pdo->prepare($sql); 
-        $stmt->execute([$user->id]);
+        $stmt->execute([$product->id]);
         $result=$stmt->fetchAll(PDO::FETCH_ASSOC);
-        $eachUserTotalSpentAmount=$result[0]['sum(total_price)']; //get each user total spent amount
-
-        // get the user who spent above 1lakhs in loop
-        if($eachUserTotalSpentAmount >= $royalUserMoneyAmount){
-            $user->total_spent_amount=$eachUserTotalSpentAmount;
-            $royalUsers[]=$user;
+        $eachProdcutSoldQuantityAmount=$result[0]["sum(quantity)"]; //get each user total spent amount
+   
+        // get the products which quantity above 7
+        if($eachProdcutSoldQuantityAmount >= $bestSellerQuantityAmount){
+            $product->total_bought_quantity_amount=$eachProdcutSoldQuantityAmount;
+            $bestSellerProducts[]=$product;
         }
+       
     }
 ?>
 <!-- Content Wrapper. Contains page content -->
@@ -27,7 +28,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Royal Users Table</h1>
+            <h1 class="m-0 text-dark">Best Seller Products Table</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -47,20 +48,20 @@
                   <thead>                  
                     <tr>
                       <th style="width: 10px">id</th>
-                      <th>Customer Name</th>
-                      <th>Total Price</th>
+                      <th>Product Name</th>
+                      <th>Total Bought quantity</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php   
-                    if($royalUsers)
+                    if($bestSellerProducts)
                     {
-                        foreach($royalUsers as $user): 
+                        foreach($bestSellerProducts as $product): 
                     ?>
                       <tr >
-                        <td><?=escape($user->id);?></td>
-                        <td><?=escape($user->name);?></td>
-                        <td><?=escape( $user->total_spent_amount);?></td>
+                        <td><?=escape($product->id);?></td>
+                        <td><?=escape($product->name);?></td>
+                        <td><?=escape($product->total_bought_quantity_amount);?></td>
                       </tr>
                     <?php 
                         endforeach;
