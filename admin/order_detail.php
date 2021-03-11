@@ -99,13 +99,13 @@
                     <nav aria-label="Page navigation example">
                       <ul class="pagination">
                         <li class="page-item <?php echo $pageno<=1 ? 'disabled' :'' ;?>">
-                            <a class="page-link" href='<?=$pageno<=1? "#":"?pageno=".$pageno-1;  ?>'>Prev</a>
+                            <a class="page-link" href='?id=<?=$_GET['id'];?>&<?=$pageno<=1? "#":"pageno=".$pageno-1;  ?>'>Prev</a>
                         </li>
                         <?php  foreach(range(1,$totalPages) as $page):?>
-                          <li class="page-item"><a class="page-link" href="?pageno=<?=$page;?>"><?=$page;?></a></li>
+                          <li class="page-item"><a class="page-link" href="?id=<?=$_GET['id'];?>&pageno=<?=$page;?>"><?=$page;?></a></li>
                         <?php endforeach; ?>
                         <li class="page-item <?php echo $pageno>=$totalPages ? 'disabled' :'' ;?>">
-                            <a class="page-link" href='<?=$pageno>=$totalPages? "#":"?pageno=".$pageno+1;  ?>'>Next</a>
+                            <a class="page-link" href='?id=<?=$_GET['id'];?>&<?=$pageno>=$totalPages? "#":"pageno=".$pageno+1;  ?>'>Next</a>
                         </li>
                       </ul>
                     </nav>
