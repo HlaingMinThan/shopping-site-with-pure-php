@@ -1,9 +1,6 @@
 <?php
    
     require "layout/header.php"; 
-    if(isset($_GET['search'])){
-        setcookie("search",$_GET['search'],time()+3600);
-    }
 
     // pagination
     // check pageno exist or not
