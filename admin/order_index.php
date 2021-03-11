@@ -1,12 +1,4 @@
 <?php
-    require "../config/common.php";
-    if(!$_SESSION["user_id"] && !$_SESSION["logged_in"]){
-      header("location:login.php");
-    }
-    if($_SESSION["user_id"] && $_SESSION["logged_in"] && $_SESSION["role"]!=1){
-      header("location:login.php");
-    }
-    require "../config/config.php";
     require "layout/header.php";
 ?>
   <!-- Content Wrapper. Contains page content -->

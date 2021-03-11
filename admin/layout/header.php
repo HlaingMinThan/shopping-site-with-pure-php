@@ -1,4 +1,15 @@
-<?php require "../config/config.php"; ?>
+<?php 
+
+require "../config/common.php";
+require "../config/config.php";
+
+if(!$_SESSION["user_id"] && !$_SESSION["logged_in"]){
+  header("location:/admin/login.php");
+}
+if($_SESSION["user_id"] && $_SESSION["logged_in"] && $_SESSION["role"]!=1){
+  header("location:/admin/login.php");
+}
+?>
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -45,8 +56,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $action="searchUsers.php";
   }
   ?>
+
     <!-- SEARCH FORM -->
-    <?php if($fileName=="index.php"||$fileName=="cat_index.php"||$fileName=="user_index.php"):?>
+    <?php if($fileName==""||$fileName=="index.php"||$fileName=="cat_index.php"||$fileName=="user_index.php"||$fileName=="searchProducts.php"||$fileName=="searchUsers.php"||$fileName=="searchCategories.php"):?>
       <form class="form-inline ml-3"  action="<?=$action;?>"> 
         <div class="input-group input-group-sm">
           <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" name="search">
@@ -67,7 +79,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="index.php" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">CC Shopping Admin</span>
@@ -89,7 +101,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="index.php" class="nav-link">
+            <a href="index.php" class="nav-link <?=$fileName===''||$fileName==='index.php' ? 'active':'';?>">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Products
@@ -97,7 +109,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           <li class="nav-item">
-            <a href="cat_index.php" class="nav-link">
+            <a href="cat_index.php" class="nav-link  <?=$fileName==='cat_index.php' ? 'active':'';?>">
               <i class="fa fa-list-alt ml-1"></i>
               <p>
                 Categories
@@ -105,18 +117,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           <li class="nav-item">
-            <a href="user_index.php" class="nav-link">
+            <a href="user_index.php" class="nav-link  <?=$fileName==='user_index.php' ? 'active':'';?>">
               <i class="nav-icon fas fa-user"></i>
               <p>
-                Users
+              Customers
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="order_index.php" class="nav-link">
-              <i class="fa fa-shopping-cart ml-2"></i>
+            <a href="order_index.php" class="nav-link  <?=$fileName==='order_index.php' ? 'active':'';?>">
+              <i class="fa fa-shopping-cart ml-1"></i>
               <p>
                 Orders
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="weekly_reports.php" class="nav-link <?=$fileName==='weekly_reports.php' ? 'active':'';?>">
+              <i class="fa fa-list ml-2"></i>
+              <p>
+                Weekly reports
               </p>
             </a>
           </li>

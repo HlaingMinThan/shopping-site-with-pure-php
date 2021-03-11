@@ -1,9 +1,5 @@
 <?php
-require "../config/common.php";
-require "../config/config.php";
-if($_SESSION["user_id"] && $_SESSION["logged_in"]&& $_SESSION["role"]!=1){
-  header("location:login.php");
-}
+require "layout/header.php"; 
 $id=$_GET['id'];
 $stmt=$pdo->prepare("select * from categories where id =?");
 $stmt->execute([$id]);
@@ -33,8 +29,6 @@ if($_POST){
   } 
 }
 ?>
-
-<?php require "layout/header.php"; ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->

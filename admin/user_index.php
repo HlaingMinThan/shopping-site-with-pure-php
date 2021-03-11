@@ -1,10 +1,4 @@
 <?php
-    require "../config/common.php";
-    require "../config/config.php";
-    if($_SESSION["user_id"] && $_SESSION["logged_in"]&& $_SESSION["role"]!=1){
-      header("location:login.php");
-    }
-
     require "layout/header.php";
     if(isset($_COOKIE['search'])){
         unset($_COOKIE["search"]);

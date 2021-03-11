@@ -1,12 +1,4 @@
 <?php
-    require "../config/common.php";
-    if(!$_SESSION["user_id"] && !$_SESSION["logged_in"]){
-      header("location:login.php");
-    }
-    if($_SESSION["user_id"] && $_SESSION["logged_in"] && $_SESSION["role"]!=1){
-      header("location:login.php");
-    }
-    require "../config/config.php";
     require "layout/header.php";
 ?>
   <!-- Content Wrapper. Contains page content -->
@@ -27,6 +19,7 @@
                 $customer=$stmt->fetch(PDO::FETCH_OBJ);
             ?>
             <h1 class="m-0 text-dark">Order Detail For <?=escape($customer->name);?></h1>
+            <h6>Order Date-<?=escape($order->order_date);?></h6>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -39,17 +32,16 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Orders Detail Table</h3>
+                <h3 class="card-title">Voucher Table</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <table class="table table-bordered text-center">
                   <thead>                  
                     <tr>
-                      <th style="width: 10px">id</th>
                       <th>Product Name</th>
                       <th>Quantity</th>
-                      <th>Order Date</th>
+                      <th>total</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -65,11 +57,11 @@
                       }
                       $recordsPerPage=5;
                       $offset=($pageno-1)*$recordsPerPage;
-                      $stmt=$pdo->prepare("select * from order_details  limit $offset,$recordsPerPage");
+                      $stmt=$pdo->prepare("select * from order_details where order_id={$_GET['id']}  limit $offset,$recordsPerPage");
                       $stmt->execute();
                       $order_details=$stmt->fetchAll(PDO::FETCH_OBJ);
                       // total pages
-                      $statement=$pdo->prepare('select count(*) from order_details');
+                      $statement=$pdo->prepare("select count(*) from order_details where order_id={$_GET['id']}");
                       $statement->execute();
                       $result=$statement->fetch();
                       $totalorder_details=$result[0];
@@ -80,10 +72,9 @@
                           
                     if($order_details)
                     {
-                        foreach($order_details as $order_detail): 
+                        foreach($order_details as $order_detail ): 
                     ?>
                       <tr >
-                        <td><?=escape($order_detail->id);?></td>
                         <?php 
                             $stmt=$pdo->prepare("select * from products where id=?");
                             $stmt->execute([$order_detail->product_id]);
@@ -91,12 +82,18 @@
                         ?>
                         <td><?=escape($product->name);?></td>
                         <td><?=escape($order_detail->quantity);?></td>
-                        <td><?=escape($order_detail->order_date);?></td>
+                        <td><?= escape(($product->price*$order_detail->quantity)); ?></td>
                       </tr>
+
                     <?php 
                         endforeach;
                       }
-                    ?>
+                      ?>
+                      <tr>
+                        <td></td>
+                        <td>Subtotal</td>
+                        <td><?= $order->total_price; ?></td>
+                      </tr>
                   </tbody>
                     <!-- pagination -->
                     <nav aria-label="Page navigation example">

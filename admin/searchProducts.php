@@ -1,10 +1,5 @@
 <?php
-    require "../config/config.php";
-    require "../config/common.php";
-    if($_SESSION["user_id"] && $_SESSION["logged_in"]&& $_SESSION["role"]!=1){
-        header("location:login.php");
-    }
-
+   
     require "layout/header.php"; 
     if(isset($_GET['search'])){
         setcookie("search",$_GET['search'],time()+3600);
@@ -20,7 +15,7 @@
     $pageno=1;
     }   
     if(isset($_GET['search'])||isset($_COOKIE['search'])){
-        $recordsPerPage=5;
+        $recordsPerPage=3;
         $offset=($pageno-1)*$recordsPerPage;
         $search=isset($_GET['search'])?$_GET['search']:$_COOKIE['search'];
         $stmt=$pdo->prepare("select * from products where name like '%$search%' limit $offset,$recordsPerPage");

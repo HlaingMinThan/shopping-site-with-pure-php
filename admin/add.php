@@ -1,11 +1,5 @@
 <?php
-
-require "../config/common.php";
-require "../config/config.php";
-if($_SESSION["user_id"] && $_SESSION["logged_in"]&& $_SESSION["role"]!=1){
-  header("location:login.php");
-}
-
+require "layout/header.php";
 if($_POST){
   if(empty($_POST['name']) || empty($_POST['description']) || empty($_POST['price']) || empty($_POST['category_id']) || empty($_POST['quantity']) ||empty($_FILES['image']['name'])){
     if(empty($_POST['name'])){
@@ -74,8 +68,6 @@ if($_POST){
   }
 }
 ?>
-
-<?php require "layout/header.php"; ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
